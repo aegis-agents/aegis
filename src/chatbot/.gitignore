@@ -1,0 +1,36 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript compiled output
+dist/
+build/
+out/
+
+# Local environment files
+.env
+.env.*
+*.local
+config.toml
+# VSCode settings
+.vscode/
+.history/
+
+# OS files
+.DS_Store
+.idea
+Thumbs.db
+
+# Optional: logs
+logs/
+*.log
+
+# Optional: coverage reports
+coverage/
+.nyc_output/
+
+# Optional: test output
+test-results/

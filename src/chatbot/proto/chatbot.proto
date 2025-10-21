@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package chatbot;
+
+service ChatbotService {
+  rpc StreamChat (StreamChatRequest) returns (stream StreamChatChunk);
+}
+
+message StreamChatRequest {
+  string user_input = 1;
+  string user_id = 2;
+  string user_action = 3;
+  string user_direct_request = 4;
+}
+
+message StreamChatChunk {
+  oneof payload {
+    ReasoningChunk reasoning_chunk = 1;
+    GeneratorChunk generator_chunk = 2;
+    string conversation_card_json = 3;
+    string dashboard_cards_json = 4;
+    string suggestions_json = 5;
+  }
+}
+message ReasoningChunk {
+  string text = 1;
+}
+
+message GeneratorChunk {
+  string text = 1;
+}

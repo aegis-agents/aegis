@@ -1,0 +1,52 @@
+[server]
+debug = true
+grpc_port = 8888
+grpc_max_workers = 20
+
+[langsmith]
+LANGSMITH_API_KEY = ""
+LANGSMITH_PROJECT = "chatbot-server"
+
+[nats]
+url = "nats://localhost:42222"
+timeout = 5
+
+[mongo]
+url = ""
+use_proxy = true
+proxy_host = "127.0.0.1"
+proxy_port = 10808
+[mongo.rag]
+db = "aegis_agent_rag"
+collection = "aegis_agent_rag_docs"
+index_name = "doc_index"
+[mongo.history]
+db = "aegis_agent_chatbot"
+collection = "aegis_agent_chatbot_history"
+[mongo.evaluator]
+db = "aegis_agent_chatbot"
+collection = "aegis_agent_chatbot_evaluator"
+
+[openai]
+api_key = ""
+base_url = "https://openrouter.ai/api/v1"
+model = "openai/gpt-4.1"
+embedding_model_api_key = ""
+use_proxy = true
+http_proxy = "http://127.0.0.1:10809"
+
+[tavily]
+api_key = ""
+
+[mcp]
+[mcp.math]
+command = "node"
+args = ["../../mcp-server/math.mcp.js"]
+transport = "stdio"
+
+[tester]
+base_url = "https://aegis-gateway.extrasafe.link/api/v1"
+tester_uid = ""
+tester_sk = ""
+tester_smart_address = ""
+rpc_url = "https://base.llamarpc.com"
