@@ -30,8 +30,11 @@ ${blockscoutTools.join("\n")}
         },
         {
           name: "AccountWorker",
-          description:
-            "Handles management of user account, including query user info (user address, smart account address and so on). AccountWorker has the following tools:\n - [show_user_info]: Use this to trigger UI to show information of the user.",
+          description: `Handles management of user account, including query user info (user address, smart account address and so on). 
+AccountWorker has the following tools:
+ - [show_user_info]: Use this to trigger UI to show information of the user.
+ - [monitor]:Query the relevant information of the smart account by its address. Including owners of smart account (field: owners) and transactions of the smart account (field: txs)
+ `,
         },
       ],
     },

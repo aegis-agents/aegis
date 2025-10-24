@@ -15,6 +15,8 @@ import config from "../config.js";
 import { handleUserDirectRequest } from "./handler/user-direct-request.js";
 import { getTeamMembers } from "./prompt/team.js";
 import { createMainSupervisor } from "./prompt/supervisor.js";
+import { getNatsConnection } from "../common/nats.js";
+import { HelperGetUserResponse } from "../types/nats.js";
 
 export const SuperGraphAnnotation = Annotation.Root({
   userInput: Annotation<string>,
@@ -305,16 +307,31 @@ const supervisorFinishNode = (state: typeof SuperGraphAnnotation.State, config: 
   return {};
 };
 
-const initNode = (state: typeof SuperGraphAnnotation.State, config: LangGraphRunnableConfig) => {
+const initNode = async (state: typeof SuperGraphAnnotation.State, config: LangGraphRunnableConfig) => {
   const taskId = uuidv4();
   if (!state.userInput) {
     return { shouldFinish: false, taskId };
   }
+  let user: HelperGetUserResponse | null = null;
+  const messages = [new AIMessage({ content: `[Task ${taskId}][System]: Task ${taskId} started at ${new Date().toUTCString()}.`, name: "System", id: uuidv4() })];
+  if (config.configurable) {
+    const { user_id, req_id } = config.configurable;
+    const nats = await getNatsConnection();
+    user = await nats.getUser({ uid: user_id, req_id: req_id });
+    messages.push(
+      new AIMessage({
+        content: `[Task ${taskId}][System]: Basic information of the current user:
+- User Address: ${user.aegis_user.user_address} (The wallet address currently used by the user for sign in)
+- User Smart Account Address: ${user.aegis_user.smart_address} （The address of smart account currently managed jointly by the user and the auto-fi agent）
+`,
+        name: "System",
+        id: uuidv4(),
+      })
+    );
+  }
+  messages.push(new HumanMessage({ content: `[Task ${taskId}][User]:${state.userInput}`, name: "User", id: uuidv4() }));
   return {
-    messages: [
-      new AIMessage({ content: `[Task ${taskId}][System]: Task ${taskId} started at ${new Date().toUTCString()}.`, name: "System", id: uuidv4() }),
-      new HumanMessage({ content: `[Task ${taskId}][User]:${state.userInput}`, name: "User", id: uuidv4() }),
-    ],
+    messages: [...messages],
     shouldFinish: false,
     taskId,
   };
