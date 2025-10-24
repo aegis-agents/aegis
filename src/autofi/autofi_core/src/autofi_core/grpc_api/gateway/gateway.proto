@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package signerGateway;
+
+service VaultService {
+  rpc EthereumSign(EthereumSignRequest) returns (EthereumSignReply) {}
+  rpc SignData(SignDataRequest) returns (SignDataReply) {}
+  rpc Initialize(InitializeRequest) returns (InitializeReply) {}
+  rpc Health(Empty) returns (InitializeReply) {}
+  rpc GetAddress(GetAddressRequest) returns(GetAddressReply) {}
+}
+
+message Empty {}
+
+message EthereumSignRequest {
+  string  path = 1;
+  string  address = 2;
+  string  chain_id = 3;
+  int64   transaction_type = 4;
+  bytes   transaction_data = 5;
+}
+
+message EthereumSignReply{
+  bytes  signed_transaction = 1;
+}
+
+message SignDataRequest {
+  string path = 1;
+  string address = 2;
+  bytes hash = 3;
+}
+
+message SignDataReply {
+  bytes signature = 1;
+}
+
+message InitializeRequest {
+  string mnemonic = 1;
+}
+
+message InitializeReply {
+  int32  status = 1;
+}
+
+message GetAddressRequest {
+  string path = 1;
+}
+
+message GetAddressReply {
+  string address = 1;
+}

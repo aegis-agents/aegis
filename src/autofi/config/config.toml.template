@@ -1,0 +1,38 @@
+[server]
+debug = true
+
+[nats]
+url = "nats://localhost:4222"
+timeout = 5
+async_response_timeout = 600
+
+[redis]
+url = ["redis-node-0.redis-headless:26379", "redis-node-1.redis-headless:26379"]
+password = ""
+
+[vault]
+url = "127.0.0.1:8880"
+
+[llm]
+investment_expert_model = "openai/gpt-4.1"
+operator_model = "openai/gpt-4.1"
+thread_id = "aegis-dev-001"
+cron_interval = 86400
+
+[mongo]
+url = "mongodb://localhost:27017"
+
+[mcp]
+[mcp.investment_expert_helper]
+command = "python3"
+args = ["./mcp/helper.py"]
+cwd = "/aegis-agent"
+env = { "PYTHONPATH" = "/aegis-agent" }
+[mcp.operator_helper]
+command = "python3"
+args = ["./mcp/helper.py"]
+cwd = "/aegis-agent"
+env = { "PYTHONPATH" = "/aegis-agent" }
+
+[cdp]
+paymaster_url = "https://api.developer.coinbase.com/rpc/v1/base/x"

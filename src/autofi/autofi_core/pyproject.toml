@@ -1,0 +1,20 @@
+[project]
+name = "autofi_core"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cdp-sdk>=1.13.0",
+    "grpcio-tools>=1.73.0",
+    "nats-py>=2.10.0",
+    "prometheus-client>=0.22.1",
+    "pydantic-settings>=2.9.1",
+    "rich>=14.0.0",
+    "tomli>=2.2.1",
+    "web3>=7.10.0",
+    "sqlalchemy >= 2.0.41",
+    "pymysql >= 1.1.1",
+    "baml-py>=0.202.1",
+    "langchain-mcp-adapters>=0.1.9",
+]
