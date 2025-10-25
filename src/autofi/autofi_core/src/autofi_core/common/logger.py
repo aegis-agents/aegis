@@ -5,6 +5,7 @@ import logging
 
 console = Console(
     width=180,
+    stderr=True,
 )
 logger_level = logging.DEBUG
 

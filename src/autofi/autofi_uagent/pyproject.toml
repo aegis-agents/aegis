@@ -1,0 +1,23 @@
+[project]
+name = "autofi_uagent"
+version = "0.1.0"
+description = "Wrap DeFi langgraph agent as Uagent"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic-settings>=2.9.1",
+    "httpx>=0.28.1",
+    "fastmcp>=2.3.5",
+    "langchain-mcp-adapters>=0.1.9",
+    "langchain-openai>=0.3.28",
+    "langgraph>=0.5.4",
+    "langgraph-checkpoint-mongodb>=0.2.0",
+    "python-dotenv>=1.1.1",
+    "protobuf>=6.33.0"
+]
+
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/autofi_uagent"]

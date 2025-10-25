@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package signerGateway;
 
+option go_package = "github.com/aegis-agents/aegis-backend/src/common/grpc/signerGateway";
+
 service VaultService {
   rpc EthereumSign(EthereumSignRequest) returns (EthereumSignReply) {}
   rpc SignData(SignDataRequest) returns (SignDataReply) {}
